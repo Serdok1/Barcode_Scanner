@@ -14,7 +14,7 @@ class _BarcodeScanState extends State<BarcodeScan> {
   String _scanBarcode = '';
   _scan() async {
     return await FlutterBarcodeScanner.scanBarcode(
-            "EB1D36", "İptal", true, ScanMode.BARCODE)
+            "#EB1D36", "İptal", true, ScanMode.BARCODE)
         .then((value) => setState(() => _scanBarcode = value));
   }
 
