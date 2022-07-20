@@ -1,4 +1,5 @@
 import 'package:barkod/home.dart';
+import 'package:barkod/main.dart';
 import 'package:barkod/widgets/scan_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class _BarcodeScanState extends State<BarcodeScan> {
   String scanBarcode = '';
   _scan() async {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => Home(
+        builder: (context) => MyApp(
               value: scanBarcode,
             )));
     return await FlutterBarcodeScanner.scanBarcode(
