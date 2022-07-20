@@ -1,3 +1,4 @@
+import 'package:barkod/home.dart';
 import 'package:barkod/widgets/scan_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,15 @@ class BarcodeScan extends StatefulWidget {
 }
 
 class _BarcodeScanState extends State<BarcodeScan> {
-  String _scanBarcode = '';
+  String scanBarcode = '';
   _scan() async {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Home(
+              value: scanBarcode,
+            )));
     return await FlutterBarcodeScanner.scanBarcode(
             "#EB1D36", "İptal", true, ScanMode.BARCODE)
-        .then((value) => setState(() => _scanBarcode = value));
+        .then((value) => setState(() => scanBarcode = value));
   }
 
   @override

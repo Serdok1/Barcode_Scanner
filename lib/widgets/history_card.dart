@@ -15,7 +15,7 @@ class HistoryCard extends StatelessWidget {
     height = size.height;
     width = size.width;
     return Card(
-      child: Container(
+      child: SizedBox(
         height: height * 0.1,
         width: width * 0.2,
         child: Column(

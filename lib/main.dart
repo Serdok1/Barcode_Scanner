@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:barkod/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +14,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(),
+    return CupertinoApp(
+      theme: CupertinoThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          primaryContrastingColor: Colors.white,
+          brightness: Brightness.light,
+          primaryColor: Colors.black,
+          barBackgroundColor: Colors.black87,
+          textTheme: CupertinoTextThemeData(
+              textStyle: TextStyle(
+            color: Colors.black,
+          ))),
       home: Home(),
     );
   }
