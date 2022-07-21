@@ -2,8 +2,9 @@
 
 import 'package:barkod/barcodescan.dart';
 import 'package:barkod/history_list.dart';
+import 'package:barkod/imgHistoryPage.dart';
 import 'package:barkod/models/history_model.dart';
-import 'package:barkod/models/history_widget.dart';
+import 'package:barkod/widgets/history_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,19 +24,24 @@ class _HomeState extends State<Home> {
   String time = DateTime.now().toString();
   @override
   Widget build(BuildContext context) {
+    void states() {
+      setState(() {
+        historyList.add(HistoryModel(code: widget.value, dateTime: time));
+      });
+      Navigator.of(context)
+          .push(CupertinoPageRoute(builder: ((context) => ImgHistory())));
+    }
+
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text("Barkod", style: TextStyle(color: Colors.white)),
+        middle: Text("Barkod", style: TextStyle(color: Colors.black)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextButton(
             onPressed: () {
-              setState(() {
-                historyList
-                    .add(HistoryModel(code: widget.value, dateTime: time));
-              });
+              states();
             },
             child: Text(
               "deneme",

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../history_list.dart';
-import '../widgets/history_card.dart';
+import 'history_card.dart';
 
 class HistoryWidget extends StatefulWidget {
   const HistoryWidget({Key? key}) : super(key: key);

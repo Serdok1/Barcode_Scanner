@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:barkod/home.dart';
-import 'package:barkod/widgets/img_history.dart';
+import 'package:barkod/imgHistoryPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +18,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     String value = "asd";
     return CupertinoApp(
+        debugShowCheckedModeBanner: false,
+        title: "Barcode Scanner",
         theme: CupertinoThemeData(
             scaffoldBackgroundColor: Colors.white,
             primaryContrastingColor: Colors.white,
             brightness: Brightness.light,
             primaryColor: Colors.black,
-            barBackgroundColor: Colors.black87,
+            barBackgroundColor: Colors.white,
             textTheme: CupertinoTextThemeData(
                 textStyle: TextStyle(
               color: Colors.black,
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
         home: /* Home(
         value: value,
       ), */
-            ImgHistory());
+            Home(
+          value: "",
+        ));
   }
 }
