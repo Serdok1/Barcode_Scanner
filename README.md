@@ -1,4 +1,4 @@
-# barkod
+# Barcode Scanner App with Flutter
 
 A new Flutter project.
 
