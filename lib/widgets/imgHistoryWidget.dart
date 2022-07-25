@@ -6,10 +6,14 @@ class ImgHistoryWidget extends StatelessWidget {
     Key? key,
     required this.barkod,
     required this.date,
+    required this.details,
+    required this.url,
   }) : super(key: key);
 
   final String barkod;
   final String date;
+  final String details;
+  final String url;
   var size, height, width;
 
   void _showActionSheet(BuildContext context) {
