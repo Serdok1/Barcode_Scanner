@@ -2,7 +2,7 @@
 
 import 'package:barkod/add_item.dart';
 import 'package:barkod/barcodescan.dart';
-import 'package:barkod/imgHistoryPage.dart';
+import 'package:barkod/HistoryPage.dart';
 import 'package:barkod/models/history_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(child: AddItem()),
+          Center(child: BarcodeScan()),
         ],
       ),
     );

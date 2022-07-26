@@ -1,10 +1,12 @@
 import 'package:barkod/main.dart';
+import 'package:barkod/providers/details_page.dart';
 import 'package:barkod/widgets/scan_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'imgHistoryPage.dart';
+import 'package:provider/provider.dart';
+import 'HistoryPage.dart';
 import 'models/history_model.dart';
 
 class BarcodeScan extends StatefulWidget {
@@ -23,9 +25,6 @@ class _BarcodeScanState extends State<BarcodeScan> {
 
   _scan() async {
     scanBarcodeNormal();
-
-    Navigator.of(context)
-        .push(CupertinoPageRoute(builder: ((context) => ImgHistory())));
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -35,7 +34,6 @@ class _BarcodeScanState extends State<BarcodeScan> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -48,6 +46,11 @@ class _BarcodeScanState extends State<BarcodeScan> {
 
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<HistoryModel>(context, listen: false);
+    Navigator.of(context).pushNamed(
+      DetailsPage.routeName,
+      arguments: product.id,
+    );
     return ScanCard(
       scan: _scan,
     );

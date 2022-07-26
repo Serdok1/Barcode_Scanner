@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:barkod/imgHistoryPage.dart';
+import 'package:barkod/HistoryPage.dart';
 import 'package:barkod/main.dart';
 import 'package:barkod/models/history_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,8 +30,8 @@ class _AddItemState extends State<AddItem> {
         final response = await http.post(
           url,
           body: json.encode({
-            'title': _barcode,
-            'description': _details,
+            'barcode': _barcode,
+            'details': _details,
             'img_url': _url,
           }),
         );
@@ -40,7 +40,7 @@ class _AddItemState extends State<AddItem> {
         throw error;
       }
       Navigator.of(context)
-          .push(CupertinoPageRoute(builder: (context) => ImgHistory()));
+          .push(CupertinoPageRoute(builder: (context) => History()));
     }
 
     size = MediaQuery.of(context).size;

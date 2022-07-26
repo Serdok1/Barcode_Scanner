@@ -1,19 +1,23 @@
+import 'package:barkod/models/history_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/items.dart';
 
 class ImgHistoryWidget extends StatelessWidget {
   ImgHistoryWidget({
     Key? key,
-    required this.barkod,
+    /* required this.barkod,
     required this.date,
     required this.details,
-    required this.url,
+    required this.url, */
   }) : super(key: key);
 
-  final String barkod;
+/*   final String barkod;
   final String date;
   final String details;
-  final String url;
+  final String url; */
   var size, height, width;
 
   void _showActionSheet(BuildContext context) {
@@ -55,6 +59,7 @@ class ImgHistoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final item = Provider.of<HistoryModel>(context, listen: false);
     size = MediaQuery.of(context).size;
     width = size.width;
     height = size.height;
@@ -89,12 +94,12 @@ class ImgHistoryWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  barkod,
+                  item.barcode,
                   style: TextStyle(fontSize: 15, letterSpacing: 2),
                 ),
                 SizedBox(height: 5),
                 Text(
-                  date,
+                  item.dateTime,
                   style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
                 )
               ],

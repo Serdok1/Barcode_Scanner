@@ -17,8 +17,8 @@ class ScanCard extends StatelessWidget {
     height = size.height;
     width = size.width;
     return Container(
-      height: 150,
-      width: 150,
+      height: 200,
+      width: 200,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(30), boxShadow: [
         BoxShadow(
@@ -35,7 +35,7 @@ class ScanCard extends StatelessWidget {
       child: Center(
           child: CupertinoButton(
               onPressed: () => {scan()},
-              child: Icon(CupertinoIcons.qrcode_viewfinder, size: 80))),
+              child: Icon(CupertinoIcons.qrcode_viewfinder, size: 100))),
     );
   }
 }
