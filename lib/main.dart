@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:barkod/details_page.dart';
 import 'package:barkod/home.dart';
+import 'package:barkod/models/history_model.dart';
 import 'package:barkod/providers/items.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +20,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => Items(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Items(),
+        ),
+      ],
       child: CupertinoApp(
           debugShowCheckedModeBanner: false,
           title: "Barcode Scanner",
@@ -33,10 +39,8 @@ class MyApp extends StatelessWidget {
                   textStyle: TextStyle(
                 color: Colors.black,
               ))),
-          home: /* Home(
-          value: value,
-        ), */
-              Home()),
+          routes: {DetailsPage.routeName: (ctx) => DetailsPage()},
+          home: Home()),
     );
   }
 }

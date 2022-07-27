@@ -10,9 +10,7 @@ import 'package:flutter/material.dart';
 class Home extends StatefulWidget {
   const Home({
     Key? key,
-    this.value,
   }) : super(key: key);
-  final value;
 
   @override
   State<Home> createState() => _HomeState();
@@ -35,12 +33,7 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(child: BarcodeScan()),
-        ],
-      ),
+      child: Center(child: BarcodeScan()),
     );
   }
 }

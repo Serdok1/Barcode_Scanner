@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:barkod/main.dart';
-import 'package:barkod/providers/details_page.dart';
+import 'package:barkod/details_page.dart';
 import 'package:barkod/widgets/scan_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -23,34 +25,33 @@ class _BarcodeScanState extends State<BarcodeScan> {
     super.initState();
   }
 
-  _scan() async {
-    scanBarcodeNormal();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
+  String barcodeScanRes = "";
+  String res = "";
   Future<void> scanBarcodeNormal() async {
-    String barcodeScanRes;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
+    setState(() {
+      res = barcodeScanRes;
+    });
     if (!mounted) return;
+  }
+
+  _scan() async {
+    scanBarcodeNormal();
+    Navigator.push(
+        context,
+        CupertinoPageRoute(
+            builder: ((context) => DetailsPage(
+                  barcode: res,
+                ))));
   }
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<HistoryModel>(context, listen: false);
-    Navigator.of(context).pushNamed(
-      DetailsPage.routeName,
-      arguments: product.id,
-    );
     return ScanCard(
       scan: _scan,
     );
