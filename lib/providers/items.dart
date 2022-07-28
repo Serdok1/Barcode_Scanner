@@ -68,4 +68,27 @@ class Items with ChangeNotifier {
       throw error;
     }
   }
+
+  Future<void> controlItem(String barcode, value) async {
+    final url = Uri.parse(
+        'https://barcode-scanner-ef196-default-rtdb.firebaseio.com/items/$barcode.json');
+    final response = await http.get(url);
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+
+    if (value == barcode) {
+      print("AAAAAAAAAAAAAAAAAAAAAAAAAA");
+    } else {
+      print("BBBBBBBBBBBBBBBBBBBBBBBBBB");
+    }
+  }
+
+  Future<void> getAllCategory(List list) async {
+    var url = Uri.parse(
+        "https://barcode-scanner-ef196-default-rtdb.firebaseio.com/items/.json");
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      list = jsonData;
+    }
+  }
 }
