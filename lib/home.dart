@@ -25,16 +25,8 @@ class _HomeState extends State<Home> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text("Barkod", style: TextStyle(color: Colors.black)),
-        leading: CupertinoButton(
-          onPressed: () {},
-          child: Icon(
-            CupertinoIcons.bars,
-            size: 35,
-            color: Colors.grey.shade600,
-          ),
-        ),
       ),
-      child: Center(child: AddEmployee()),
+      child: Center(child: BarcodeScan()),
     );
   }
 }

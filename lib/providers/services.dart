@@ -3,19 +3,20 @@ import '../models/employee.dart';
 import 'dart:convert';
 
 class Services {
-  final ROOT = Uri.parse('http://localhost/employee_actions.php');
-  final _CREATE_TABLE_ACTION = 'CREATE_TABLE';
-  final _GET_ALL_ACTION = 'GET_ALL';
-  final _ADD_EMP_ACTION = 'ADD_EMP';
-  final _UPDATE_EMP_ACTION = 'UPDATE_EMP';
-  final _DELETE_EMP_ACTION = 'DELETE_EMP';
+  static final ROOT =
+      Uri.parse('http://localhost/EmployeDB/employee_actions.php');
+  static final _CREATE_TABLE_ACTION = 'CREATE_TABLE';
+  static final _GET_ALL_ACTION = 'GET_ALL';
+  static final _ADD_EMP_ACTION = 'ADD_EMP';
+  static final _UPDATE_EMP_ACTION = 'UPDATE_EMP';
+  static final _DELETE_EMP_ACTION = 'DELETE_EMP';
 
   List<Employee> parseResponse(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     return parsed.map<Employee>((json) => Employee.fromJson(json));
   }
 
-  Future<String> createTable() async {
+  static Future<String> createTable() async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = _CREATE_TABLE_ACTION;
@@ -47,12 +48,14 @@ class Services {
     throw {"ErrorRrRrRr"};
   }
 
-  Future<String> addEmployee(String firstName, lastName) async {
+  static Future<String> addEmployee(
+      String id, String firstName, String lastName) async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = _ADD_EMP_ACTION;
-      map["first_name"] = firstName;
-      map["last_name"] = lastName;
+      map['emp_id'] = id;
+      map['first_name'] = firstName;
+      map['last_name'] = lastName;
       final response = await http.post(ROOT, body: map);
       print('addEmployee Response: ${response.body}');
       if (response.statusCode == 200) {
@@ -65,7 +68,7 @@ class Services {
     }
   }
 
-  Future<String> updateEmployee(
+  static Future<String> updateEmployee(
       int empId, String firstName, String lastName) async {
     try {
       var map = Map<String, dynamic>();
@@ -85,7 +88,7 @@ class Services {
     }
   }
 
-  Future<String> deleteEmployee(int empId) async {
+  static Future<String> deleteEmployee(String empId) async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = _DELETE_EMP_ACTION;
