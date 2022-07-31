@@ -6,7 +6,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import '../providers/services.dart';
 
 class AddEmployee extends StatefulWidget {
-  const AddEmployee({Key? key}) : super(key: key);
+  const AddEmployee({
+    Key? key,
+    /* required this.id */
+  }) : super(key: key);
+  /* final String id; */
 
   @override
   State<AddEmployee> createState() => AddEmployeeState();
@@ -43,6 +47,14 @@ class AddEmployeeState extends State<AddEmployee> {
     });
   }
 
+  _checkId(String id) {
+    Services.checkId(id).then((result) {
+      if ('succes' == result) {
+        print("succes");
+      }
+    });
+  }
+
   final _firstName = TextEditingController();
   final _lastName = TextEditingController();
   final _id = TextEditingController();
@@ -62,6 +74,11 @@ class AddEmployeeState extends State<AddEmployee> {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
+
+    setState(() {
+      _id.text = "123";
+    });
+
     return CupertinoPageScaffold(
         child: Container(
       height: height * 0.25,
@@ -85,11 +102,11 @@ class AddEmployeeState extends State<AddEmployee> {
               child: Text("Submit"),
               onPressed: () {
                 /* _createTable(); */
-                /* _addEmployee('01', 'Sina', 'Eren'); */
-                _addEmployee(_id.text, _firstName.text, _lastName.text);
+                /* _addEmployee(_id.text, _firstName.text, _lastName.text);
                 _firstName.text = "";
                 _lastName.text = "";
-                _id.text = "";
+                _id.text; */
+                _checkId(_id.text);
               })
         ],
       ),

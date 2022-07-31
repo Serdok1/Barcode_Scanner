@@ -10,6 +10,7 @@ class Services {
   static final _ADD_EMP_ACTION = 'ADD_EMP';
   static final _UPDATE_EMP_ACTION = 'UPDATE_EMP';
   static final _DELETE_EMP_ACTION = 'DELETE_EMP';
+  static final _CHECK_ID = 'CHECK_ID';
 
   List<Employee> parseResponse(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
@@ -95,6 +96,23 @@ class Services {
       map['emp_id'] = empId;
       final response = await http.post(ROOT, body: map);
       print('deleteEmployee Response: ${response.body}');
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return "error";
+      }
+    } catch (e) {
+      return "error";
+    }
+  }
+
+  static Future<String> checkId(String id) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = _CHECK_ID;
+      map['emp_id'] = id;
+      final response = await http.post(ROOT, body: map);
+      print('chechId Response: ${response.body}');
       if (response.statusCode == 200) {
         return response.body;
       } else {
