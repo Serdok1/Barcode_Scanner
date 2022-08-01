@@ -1,17 +1,13 @@
 import 'dart:convert';
-
-import 'package:barkod/adders/add_employee.dart';
-import 'package:barkod/adders/add_item.dart';
-import 'package:barkod/main.dart';
-import 'package:barkod/details_page.dart';
 import 'package:barkod/widgets/scan_card.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'HistoryPage.dart';
-import 'models/history_model.dart';
+
+import 'adders/add_employee.dart';
+import 'providers/services.dart';
 
 class BarcodeScan extends StatefulWidget {
   BarcodeScan({Key? key}) : super(key: key);
@@ -22,13 +18,26 @@ class BarcodeScan extends StatefulWidget {
 }
 
 class _BarcodeScanState extends State<BarcodeScan> {
+  String demo = "test";
   @override
   Widget build(BuildContext context) {
     void initState() {
       super.initState();
     }
 
-    Future<void> scanBarcodeNormal() async {
+    void checkID(String id) {
+      (Services.checkId(id).then((value) {
+        print(value);
+        /*  if (value == "exist") {
+          "true"
+        } else if (value == "noexist") {
+          Navigator.push(context,
+              CupertinoPageRoute(builder: ((context) => AddEmployee())));
+        } */
+      }));
+    }
+
+    /*  Future<void> scanBarcodeNormal() async {
       String barcodeScanRes = "";
       try {
         barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
@@ -38,17 +47,14 @@ class _BarcodeScanState extends State<BarcodeScan> {
       }
 
       setState(() {
-        Navigator.push(
-            context,
-            CupertinoPageRoute(
-                builder: ((context) => AddEmployee(/* id: barcodeScanRes */))));
+        checkID(barcodeScanRes);
       });
 
       if (!mounted) return;
-    }
+    } */
 
-    return ScanCard(
-      scan: scanBarcodeNormal,
-    );
+    return ScanCard(scan: () {
+      checkID("123");
+    });
   }
 }

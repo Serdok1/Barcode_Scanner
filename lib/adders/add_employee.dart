@@ -47,14 +47,6 @@ class AddEmployeeState extends State<AddEmployee> {
     });
   }
 
-  _checkId(String id) {
-    Services.checkId(id).then((result) {
-      if ('succes' == result) {
-        print("succes");
-      }
-    });
-  }
-
   final _firstName = TextEditingController();
   final _lastName = TextEditingController();
   final _id = TextEditingController();
@@ -106,7 +98,6 @@ class AddEmployeeState extends State<AddEmployee> {
                 _firstName.text = "";
                 _lastName.text = "";
                 _id.text; */
-                _checkId(_id.text);
               })
         ],
       ),

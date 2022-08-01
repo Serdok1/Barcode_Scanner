@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
       navigationBar: CupertinoNavigationBar(
         middle: Text("Barkod", style: TextStyle(color: Colors.black)),
       ),
-      child: Center(child: AddEmployee()),
+      child: Center(child: BarcodeScan()),
     );
   }
 }
