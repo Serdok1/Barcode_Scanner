@@ -23,9 +23,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text("Barkod", style: TextStyle(color: Colors.black)),
-      ),
       child: Center(child: BarcodeScan()),
     );
   }

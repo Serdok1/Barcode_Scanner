@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../providers/services.dart';
 
 class AddEmployee extends StatefulWidget {
@@ -22,6 +22,7 @@ class AddEmployee extends StatefulWidget {
 class AddEmployeeState extends State<AddEmployee> {
   var size, height, width;
   late GlobalKey<ScaffoldState> _scaffoldKey;
+  final ImagePicker _picker = ImagePicker();
 
   _createTable() {
     Services.createTable().then((result) {
@@ -73,22 +74,38 @@ class AddEmployeeState extends State<AddEmployee> {
 
     return CupertinoPageScaffold(
         child: Container(
-      height: height * 0.25,
+      height: height * 0.6,
       width: width * 0.8,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CupertinoTextField(
-            placeholder: "Kullanıcı Adı",
+            placeholder: "Ürün Başlığı",
             controller: _firstName,
           ),
           CupertinoTextField(
-            placeholder: "Kullanıcı Soyadı",
+            placeholder: "Ürün Açıklaması",
             controller: _lastName,
           ),
           CupertinoTextField(
-            placeholder: "Kullanıcı ID'si",
+            placeholder: "Ürün Barkodu",
             controller: _id,
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 5),
+            child: Row(
+              children: [
+                Placeholder(
+                  fallbackWidth: width * 0.5,
+                  fallbackHeight: height * 0.2,
+                ),
+                CupertinoButton(
+                    child: Icon(CupertinoIcons.add),
+                    onPressed: () {
+                      _picker.pickImage(source: ImageSource.gallery);
+                    }),
+              ],
+            ),
           ),
           CupertinoButton.filled(
               child: Text("Submit"),
