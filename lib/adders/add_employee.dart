@@ -1,3 +1,4 @@
+import 'package:barkod/widgets/navBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -73,49 +74,60 @@ class AddEmployeeState extends State<AddEmployee> {
     });
 
     return CupertinoPageScaffold(
-        child: Container(
-      height: height * 0.6,
-      width: width * 0.8,
+        child: SafeArea(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CupertinoTextField(
-            placeholder: "Ürün Başlığı",
-            controller: _firstName,
-          ),
-          CupertinoTextField(
-            placeholder: "Ürün Açıklaması",
-            controller: _lastName,
-          ),
-          CupertinoTextField(
-            placeholder: "Ürün Barkodu",
-            controller: _id,
-          ),
+          NavBar(text: "Ürün Ekle"),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
-            child: Row(
+            height: height * 0.6,
+            width: width * 0.8,
+            margin: EdgeInsets.only(top: 80),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Placeholder(
-                  fallbackWidth: width * 0.5,
-                  fallbackHeight: height * 0.2,
+                CupertinoTextField.borderless(
+                  placeholder: "Ürün Başlığı",
+                  controller: _firstName,
+                  clearButtonMode: OverlayVisibilityMode.editing,
                 ),
-                CupertinoButton(
-                    child: Icon(CupertinoIcons.add),
+                CupertinoTextField.borderless(
+                  placeholder: "Ürün Açıklaması",
+                  controller: _lastName,
+                  clearButtonMode: OverlayVisibilityMode.editing,
+                ),
+                CupertinoTextField.borderless(
+                  placeholder: "Ürün Barkodu",
+                  controller: _id,
+                  clearButtonMode: OverlayVisibilityMode.editing,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  child: Row(
+                    children: [
+                      CupertinoButton(
+                          child: Icon(CupertinoIcons.add),
+                          onPressed: () {
+                            _picker.pickImage(source: ImageSource.gallery);
+                          }),
+                      Text(
+                        "Görsel Seçilmedi",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+                CupertinoButton.filled(
+                    child: Text("Kaydet"),
                     onPressed: () {
-                      _picker.pickImage(source: ImageSource.gallery);
-                    }),
+                      /* _createTable(); */
+                      /* _addEmployee(_id.text, _firstName.text, _lastName.text);
+                      _firstName.text = "";
+                      _lastName.text = "";
+                      _id.text; */
+                    })
               ],
             ),
           ),
-          CupertinoButton.filled(
-              child: Text("Submit"),
-              onPressed: () {
-                /* _createTable(); */
-                /* _addEmployee(_id.text, _firstName.text, _lastName.text);
-                _firstName.text = "";
-                _lastName.text = "";
-                _id.text; */
-              })
         ],
       ),
     ));

@@ -35,7 +35,11 @@ class ScanCard extends StatelessWidget {
       child: Center(
           child: CupertinoButton(
               onPressed: () => {scan()},
-              child: Icon(CupertinoIcons.qrcode_viewfinder, size: 100))),
+              child: Icon(
+                CupertinoIcons.qrcode_viewfinder,
+                size: 100,
+                color: Colors.black,
+              ))),
     );
   }
 }

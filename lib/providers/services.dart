@@ -5,16 +5,18 @@ import 'dart:convert';
 class Services {
   static final ROOT =
       Uri.parse('http://localhost/EmployeDB/employee_actions.php');
+  static final GET = Uri.parse('http://localhost/EmployeDB/getAll.php');
   static final _CREATE_TABLE_ACTION = 'CREATE_TABLE';
   static final _GET_ALL_ACTION = 'GET_ALL';
   static final _ADD_EMP_ACTION = 'ADD_EMP';
   static final _UPDATE_EMP_ACTION = 'UPDATE_EMP';
   static final _DELETE_EMP_ACTION = 'DELETE_EMP';
   static final _CHECK_ID = 'CHECK_ID';
+  static final _GET_ID = 'GET_ID';
 
-  List<Employee> parseResponse(String responseBody) {
+  static List<Employee> parseResponse(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<Employee>((json) => Employee.fromJson(json));
+    return parsed.map<Employee>((json) => Employee.fromJson(json)).toList();
   }
 
   static Future<String> createTable() async {
@@ -33,20 +35,9 @@ class Services {
     }
   }
 
-  Future<List<Employee>> getEmployees() async {
-    try {
-      var map = Map<String, dynamic>();
-      map['action'] = _GET_ALL_ACTION;
-      final response = await http.post(ROOT, body: map);
-      print('getEmployee Response: ${response.body}');
-      if (response.statusCode == 200) {
-        List<Employee> list = parseResponse(response.body);
-        return list;
-      }
-    } catch (e) {
-      return <Employee>[];
-    }
-    throw {"ErrorRrRrRr"};
+  static Future getEmployees() async {
+    final response = await http.get(GET);
+    return json.decode(response.body);
   }
 
   static Future<String> addEmployee(
@@ -112,7 +103,7 @@ class Services {
       map['action'] = _CHECK_ID;
       map['emp_id'] = id;
       final response = await http.post(ROOT, body: map);
-      /* print('chechkId Response: ${response.body}'); */
+      print('chechkId Response: ${response.body}');
       return response.body;
     } catch (e) {
       return "error";

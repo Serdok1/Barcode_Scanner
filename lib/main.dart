@@ -3,6 +3,7 @@
 import 'package:barkod/barcodescan.dart';
 import 'package:barkod/details_page.dart';
 import 'package:barkod/home.dart';
+import 'package:barkod/widgets/menuCard.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:get/get.dart';
 import 'package:barkod/providers/items.dart';
@@ -35,9 +36,9 @@ class MyApp extends StatelessWidget {
           title: "Barcode Scanner",
           theme: CupertinoThemeData(
               scaffoldBackgroundColor: Colors.white,
-              primaryContrastingColor: Colors.yellow,
+              primaryContrastingColor: Color.fromARGB(255, 10, 132, 255),
               brightness: Brightness.light,
-              primaryColor: Colors.black,
+              primaryColor: Color.fromARGB(255, 255, 214, 10),
               barBackgroundColor: Color.fromARGB(255, 10, 132, 255),
               textTheme: CupertinoTextThemeData(
                   textStyle: TextStyle(
@@ -62,7 +63,7 @@ class MyHomePage extends GetView<MyDrawerController> {
         angle: 0.0,
         openCurve: const Interval(0.0, 1.0, curve: Curves.easeOut),
         menuBackgroundColor: Color.fromARGB(255, 255, 214, 10),
-        drawerShadowsBackgroundColor: Color.fromARGB(255, 10, 132, 255),
+        drawerShadowsBackgroundColor: Colors.grey.shade200,
         slideWidth: MediaQuery.of(context).size.width * 0.65,
       ),
     );
@@ -80,36 +81,10 @@ class MenuScreen extends GetView<MyDrawerController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Selections_Card(),
+            MenuCard(),
           ],
         ),
       ),
-    );
-  }
-}
-
-class Selections_Card extends StatelessWidget {
-  const Selections_Card({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.5,
-      width: MediaQuery.of(context).size.width * 0.5,
-      margin: EdgeInsets.only(left: 5),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade600,
-              spreadRadius: 0,
-              blurRadius: 6,
-              offset: const Offset(5, 4),
-            ),
-          ]),
     );
   }
 }
@@ -119,7 +94,7 @@ class MyDrawerController extends GetxController {
 
   void toggleDrawer() {
     print("Toggle drawer");
-    zoomDrawerController.toggle?.call();
+    zoomDrawerController.close!();
     update();
   }
 }
