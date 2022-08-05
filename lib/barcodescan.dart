@@ -44,6 +44,9 @@ class _BarcodeScanState extends State<BarcodeScan> {
       }));
     }
 
+    func() {
+      ZoomDrawer.of(context)?.open();
+    }
     /*  Future<void> scanBarcodeNormal() async {
       String barcodeScanRes = "";
       try {
@@ -66,6 +69,8 @@ class _BarcodeScanState extends State<BarcodeScan> {
         children: [
           NavBar(
             text: "Barkod Okut",
+            icon: CupertinoIcons.equal_circle,
+            func: func,
           ),
           Container(
             margin: EdgeInsets.only(top: 50),

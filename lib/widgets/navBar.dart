@@ -4,8 +4,12 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class NavBar extends StatelessWidget {
-  const NavBar({Key? key, required this.text}) : super(key: key);
+  const NavBar(
+      {Key? key, required this.text, required this.icon, required this.func})
+      : super(key: key);
   final String text;
+  final IconData icon;
+  final func;
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +17,10 @@ class NavBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
-          margin: EdgeInsets.only(left: 10),
-          child: Icon(
-            CupertinoIcons.equal_circle,
-            color: Colors.black54,
-          ),
-        ),
+            child:
+                CupertinoButton(child: Icon(icon), onPressed: () => {func()})),
         Container(
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.only(right: 10),
           height: 40,
           width: MediaQuery.of(context).size.width * 0.8,
           child: Row(

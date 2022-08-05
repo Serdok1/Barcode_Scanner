@@ -1,14 +1,22 @@
+import 'package:flutter/services.dart';
+
 class Employee {
   final String id;
-  final String firstName;
-  final String lastName;
+  final String title;
+  final String details;
+  final ByteData img;
 
-  Employee({required this.id, required this.firstName, required this.lastName});
+  Employee(
+      {required this.id,
+      required this.title,
+      required this.details,
+      required this.img});
 
   factory Employee.fromJson(Map<String, dynamic> json) {
     return Employee(
         id: json['emp_id'] as String,
-        firstName: json['first_name'] as String,
-        lastName: json['last_name'] as String);
+        title: json['first_name'] as String,
+        details: json['last_name'] as String,
+        img: json['img'] as ByteData);
   }
 }

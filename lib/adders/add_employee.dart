@@ -1,8 +1,9 @@
+import 'dart:html';
+
 import 'package:barkod/widgets/navBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import '../providers/services.dart';
 
@@ -68,6 +69,35 @@ class AddEmployeeState extends State<AddEmployee> {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
+    File _image;
+    final picker = ImagePicker();
+    TextEditingController nameController = TextEditingController();
+
+/* video 3.07 */
+    /*  Future choiceImage() async {
+      var pickImage = await picker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        _image = File(_image.);
+      });
+    }
+
+    Future uploadImage() async {
+      var request = http.MultipartRequest('POST', GET);
+      request.fields['name'] = nameController.text;
+      var pic = await http.MultipartFile.fromPath("image", _image.path);
+      request.files.add(pic);
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        print('Image Upload');
+      } else {
+        print('Image Not Upload');
+      }
+    } */
+
+    func() {
+      Navigator.pop(context);
+    }
 
     setState(() {
       _id.text = "123";
@@ -77,7 +107,11 @@ class AddEmployeeState extends State<AddEmployee> {
         child: SafeArea(
       child: Column(
         children: [
-          NavBar(text: "Ürün Ekle"),
+          NavBar(
+            text: "Ürün Ekle",
+            icon: CupertinoIcons.back,
+            func: func,
+          ),
           Container(
             height: height * 0.6,
             width: width * 0.8,
