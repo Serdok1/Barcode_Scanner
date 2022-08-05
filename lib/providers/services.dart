@@ -103,7 +103,7 @@ class Services {
       map['action'] = _CHECK_ID;
       map['emp_id'] = id;
       final response = await http.post(ROOT, body: map);
-      print('chechkId Response: ${response.body}');
+      print('checkId Response: ${response.body}');
       return response.body;
     } catch (e) {
       return "error";
