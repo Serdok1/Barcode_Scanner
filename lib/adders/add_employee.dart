@@ -1,11 +1,10 @@
-import 'dart:html';
-
 import 'package:barkod/widgets/navBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import '../providers/services.dart';
+import 'dart:io';
 
 class AddEmployee extends StatefulWidget {
   const AddEmployee({
@@ -69,20 +68,23 @@ class AddEmployeeState extends State<AddEmployee> {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
-    File _image;
-    final picker = ImagePicker();
+    XFile _image = XFile("");
+    final ImagePicker _picker = ImagePicker();
     TextEditingController nameController = TextEditingController();
+    bool uploaded = false;
 
 /* video 3.07 */
-    /*  Future choiceImage() async {
-      var pickImage = await picker.pickImage(source: ImageSource.gallery);
+    Future choiceImage() async {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
       setState(() {
-        _image = File(_image.);
+        _image = XFile(image!.path);
+        print(_image.path);
       });
     }
 
     Future uploadImage() async {
-      var request = http.MultipartRequest('POST', GET);
+      final uri = Uri.parse("http://localhost/EmployeDB/uploadimage.php");
+      var request = http.MultipartRequest('POST', uri);
       request.fields['name'] = nameController.text;
       var pic = await http.MultipartFile.fromPath("image", _image.path);
       request.files.add(pic);
@@ -93,7 +95,7 @@ class AddEmployeeState extends State<AddEmployee> {
       } else {
         print('Image Not Upload');
       }
-    } */
+    }
 
     func() {
       Navigator.pop(context);
@@ -141,18 +143,19 @@ class AddEmployeeState extends State<AddEmployee> {
                       CupertinoButton(
                           child: Icon(CupertinoIcons.add),
                           onPressed: () {
-                            _picker.pickImage(source: ImageSource.gallery);
+                            choiceImage();
                           }),
                       Text(
                         "Görsel Seçilmedi",
                         style: TextStyle(color: Colors.grey),
-                      ),
+                      )
                     ],
                   ),
                 ),
                 CupertinoButton.filled(
                     child: Text("Kaydet"),
                     onPressed: () {
+                      uploadImage();
                       /* _createTable(); */
                       /* _addEmployee(_id.text, _firstName.text, _lastName.text);
                       _firstName.text = "";

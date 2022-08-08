@@ -21,11 +21,11 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _getEmployees());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _getEmployees("12"));
   }
 
-  void _getEmployees() {
-    Services.getEmployees().then((employees) {
+  void _getEmployees(String id) {
+    Services.getEmployees(id).then((employees) {
       print(employees);
       print("Length ${employees.length}");
       setState(() {
@@ -33,6 +33,9 @@ class _DetailsPageState extends State<DetailsPage> {
         _isloading = false;
       });
       print(_employees);
+    });
+    Services.getImage(id).then((value) {
+      print(value);
     });
   }
 
