@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:barkod/details_page.dart';
+import 'package:barkod/widgets/imgHistoryWidget.dart';
 import 'package:barkod/widgets/navBar.dart';
 import 'package:barkod/widgets/scan_card.dart';
 import 'package:flutter/material.dart';
@@ -78,8 +79,66 @@ class _BarcodeScanState extends State<BarcodeScan> {
               checkID("999");
             }),
           ),
+          Container(
+            margin: EdgeInsets.only(top: 50),
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.4,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(-2, -2),
+                      spreadRadius: 2.5,
+                      color: Colors.grey,
+                      blurRadius: 1,
+                      blurStyle: BlurStyle.inner)
+                ]),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  HistoryWidget(),
+                  HistoryWidget(),
+                  HistoryWidget(),
+                  HistoryWidget(),
+                  HistoryWidget(),
+                  HistoryWidget(),
+                  HistoryWidget(),
+                  HistoryWidget(),
+                  HistoryWidget(),
+                  HistoryWidget(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
+    );
+  }
+}
+
+class HistoryWidget extends StatelessWidget {
+  const HistoryWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      width: MediaQuery.of(context).size.width * 0.7,
+      height: MediaQuery.of(context).size.height * 0.1,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.grey,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade600,
+              spreadRadius: 0,
+              blurRadius: 6,
+              offset: const Offset(5, 4),
+            ),
+          ]),
     );
   }
 }
