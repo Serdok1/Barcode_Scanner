@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:barkod/details_page.dart';
 import 'package:barkod/widgets/imgHistoryWidget.dart';
+import 'package:barkod/widgets/item_list.dart';
 import 'package:barkod/widgets/navBar.dart';
 import 'package:barkod/widgets/scan_card.dart';
 import 'package:flutter/material.dart';
@@ -89,9 +90,9 @@ class _BarcodeScanState extends State<BarcodeScan> {
                 boxShadow: [
                   BoxShadow(
                       offset: Offset(-2, -2),
-                      spreadRadius: 2.5,
+                      spreadRadius: 0,
                       color: Colors.grey,
-                      blurRadius: 1,
+                      blurRadius: 5,
                       blurStyle: BlurStyle.inner)
                 ]),
             child: SingleChildScrollView(

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:barkod/widgets/navBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import '../providers/services.dart';
 import 'dart:io';
+import 'package:http_parser/http_parser.dart';
 
 class AddEmployee extends StatefulWidget {
   const AddEmployee({
@@ -24,7 +27,8 @@ class AddEmployeeState extends State<AddEmployee> {
   var size, height, width;
   late GlobalKey<ScaffoldState> _scaffoldKey;
   final ImagePicker _picker = ImagePicker();
-
+  XFile _image =
+      XFile("/data/user/0/com.example.barkod/cache/image_picker117250324.jpg");
   _createTable() {
     Services.createTable().then((result) {
       if ('succes' == result) {
@@ -68,7 +72,7 @@ class AddEmployeeState extends State<AddEmployee> {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
-    XFile _image = XFile("");
+
     final ImagePicker _picker = ImagePicker();
     TextEditingController nameController = TextEditingController();
     bool uploaded = false;
@@ -78,15 +82,16 @@ class AddEmployeeState extends State<AddEmployee> {
       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
       setState(() {
         _image = XFile(image!.path);
-        print(_image.path);
+        print(image.path);
       });
     }
 
     Future uploadImage() async {
-      final uri = Uri.parse("http://localhost/EmployeDB/uploadimage.php");
+      final uri = Uri.parse("http://192.168.1.173/EmployeDB/uploadimage.php");
       var request = http.MultipartRequest('POST', uri);
-      request.fields['name'] = nameController.text;
-      var pic = await http.MultipartFile.fromPath("image", _image.path);
+      request.fields['name'] = "deneme1";
+      var pic = await http.MultipartFile.fromPath("image", _image.path,
+          contentType: MediaType.parse("image/png"));
       request.files.add(pic);
       var response = await request.send();
 
@@ -104,6 +109,14 @@ class AddEmployeeState extends State<AddEmployee> {
     setState(() {
       _id.text = "123";
     });
+
+    Future showImage(String name) async {
+      Services.showImage(name).then((value) {
+        return Container(
+          decoration: BoxDecoration(),
+        );
+      });
+    }
 
     return CupertinoPageScaffold(
         child: SafeArea(
@@ -148,7 +161,9 @@ class AddEmployeeState extends State<AddEmployee> {
                       Text(
                         "Görsel Seçilmedi",
                         style: TextStyle(color: Colors.grey),
-                      )
+                      ),
+                      CupertinoButton.filled(
+                          child: Text("Show"), onPressed: () {})
                     ],
                   ),
                 ),

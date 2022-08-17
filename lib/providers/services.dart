@@ -4,9 +4,9 @@ import 'dart:convert';
 
 class Services {
   static final ROOT =
-      Uri.parse('http://localhost/EmployeDB/employee_actions.php');
-  static final GET = Uri.parse('http://localhost/EmployeDB/getAll.php');
-  static final IMAGE = Uri.parse('http://localhost/EmployeDB/getimage.php');
+      Uri.parse('http://192.168.1.173/EmployeDB/employee_actions.php');
+  static final GET = Uri.parse('http://192.168.1.173/EmployeDB/getAll.php');
+  static final IMAGE = Uri.parse('http://192.168.1.173/EmployeDB/getimage.php');
   static final _CREATE_TABLE_ACTION = 'CREATE_TABLE';
   static final _GET_ALL_ACTION = 'GET_ALL';
   static final _ADD_EMP_ACTION = 'ADD_EMP';
@@ -49,6 +49,14 @@ class Services {
     map['id'] = id;
     final response = await http.post(IMAGE, body: map);
     return json.decode(response.body);
+  }
+
+  static Future showImage(String name) async {
+    var map = Map<String, dynamic>();
+    map['name'] = name;
+    var url = Uri.parse("http://192.168.1.173/EmployeDB/viewimage.php");
+    var response = await http.get(url);
+    return jsonDecode(response.body);
   }
 
   static Future<String> addEmployee(
